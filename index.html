@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Admission Enquiry</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body, html {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  font-family: Arial, sans-serif;
+  background: black;
+}
+
+/* FULLSCREEN VIDEO */
+video {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  top: 0;
+  left: 0;
+}
+
+/* LOGO */
+#logo {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  width: 120px;
+  z-index: 3;
+}
+
+/* BLUR OVERLAY */
+#blurLayer {
+  display: none;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  backdrop-filter: blur(8px);
+  background: rgba(0,0,50,0.55);
+  z-index: 2;
+}
+
+/* GLOWING ADMISSION BUTTON */
+#admissionBtn {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 28px 60px;
+  font-size: 32px;
+  font-weight: bold;
+  color: #002b5c;
+  background: #ffcc00;
+  border: none;
+  border-radius: 60px;
+  cursor: pointer;
+  z-index: 4;
+  animation: glow 1.5s infinite alternate;
+}
+
+@keyframes glow {
+  from { box-shadow: 0 0 12px #ffcc00; }
+  to { box-shadow: 0 0 40px #ffcc00; }
+}
+
+/* SKIP BUTTON */
+#skipBtn {
+  position: fixed;
+  bottom: 100px;
+  right: 30px;
+  padding: 12px 22px;
+  font-size: 16px;
+  border-radius: 25px;
+  border: none;
+  background: rgba(255,255,255,0.9);
+  cursor: pointer;
+  z-index: 3;
+}
+
+/* TESTIMONIAL POPUP */
+#testimonialBox {
+  display: none;
+  position: fixed;
+  bottom: 30px;
+  left: 30px;
+  width: 280px;
+  background: white;
+  padding: 15px;
+  border-radius: 15px;
+  z-index: 4;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+}
+</style>
+</head>
+
+<body>
+
+<img id="logo" src="logo.png">
+
+<!-- LANGUAGE SELECT -->
+<select onchange="changeLang(this.value)" 
+style="position:fixed; top:20px; right:20px; z-index:5;">
+<option value="en">English</option>
+<option value="hi">Hindi</option>
+<option value="mr">Marathi</option>
+</select>
+
+<video id="video" autoplay muted playsinline controls>
+  <source src="https://ia601604.us.archive.org/13/items/school-infra/school%20infra.mp4" type="video/mp4">
+</video>
+
+<div id="blurLayer"></div>
+
+<button id="skipBtn">Skip ▶</button>
+
+<button id="admissionBtn"
+onclick="window.location.href='https://forms.gle/ihTkxdfNFsEE2uig9'">
+ADMISSION ENQUIRY
+</button>
+
+<div id="testimonialBox">
+  <strong>Parent Review ⭐⭐⭐⭐⭐</strong>
+  <p>"Excellent school environment and caring teachers!"</p>
+</div>
+
+<script>
+const video = document.getElementById("video");
+const blur = document.getElementById("blurLayer");
+const btn = document.getElementById("admissionBtn");
+const skip = document.getElementById("skipBtn");
+const testimonial = document.getElementById("testimonialBox");
+
+/* SHOW ADMISSION SCREEN */
+function showAdmission() {
+  video.style.filter = "blur(6px)";
+  blur.style.display = "block";
+  btn.style.display = "block";
+  testimonial.style.display = "block";
+  skip.style.display = "none";
+}
+
+/* VIDEO ENDS */
+video.onended = showAdmission;
+
+/* SKIP BUTTON */
+skip.onclick = showAdmission;
+
+/* LANGUAGE SWITCH */
+function changeLang(lang){
+  if(lang=="hi"){
+    btn.innerHTML="प्रवेश पूछताछ";
+  }
+  if(lang=="mr"){
+    btn.innerHTML="प्रवेश चौकशी";
+  }
+  if(lang=="en"){
+    btn.innerHTML="ADMISSION ENQUIRY";
+  }
+}
+</script>
+
+</body>
+</html>
